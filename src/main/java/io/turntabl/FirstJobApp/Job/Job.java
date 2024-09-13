@@ -1,7 +1,6 @@
 package io.turntabl.FirstJobApp.Job;
 
 import io.turntabl.FirstJobApp.Company.Company;
-import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;

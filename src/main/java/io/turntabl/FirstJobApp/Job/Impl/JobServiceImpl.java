@@ -1,5 +1,6 @@
 package io.turntabl.FirstJobApp.Job.Impl;
 
+import io.turntabl.FirstJobApp.Company.CompanyService;
 import io.turntabl.FirstJobApp.Job.Job;
 import io.turntabl.FirstJobApp.Job.JobService;
 import io.turntabl.FirstJobApp.JobRepository;
@@ -8,14 +9,17 @@ import org.springframework.stereotype.Service;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
-
+ 
 @Service
 public class JobServiceImpl implements JobService {
     // private List<Job> jobs = new ArrayList<>();
     JobRepository jobRepository;
+    CompanyService companyService;
 
-    public JobServiceImpl(JobRepository jobRepository) {
+
+    public JobServiceImpl(JobRepository jobRepository, CompanyService companyService) {
         this.jobRepository = jobRepository;
+        this.companyService = companyService;
     }
 
     @Override
@@ -45,16 +49,17 @@ public class JobServiceImpl implements JobService {
 
     @Override
     public Job updateJob(Long id, Job jobUpdates) {
-        Optional<Job> optionalUpdatedJob = jobRepository.findById(id);
-        if(optionalUpdatedJob.isPresent()){
-            Job updatedJob = optionalUpdatedJob.get();
-            updatedJob.setId(id);
-            updatedJob.setDescription(jobUpdates.getDescription());
-            updatedJob.setLocation(jobUpdates.getLocation());
-            updatedJob.setTitle(jobUpdates.getTitle());
-            updatedJob.setMinSalary(jobUpdates.getMinSalary());
-            updatedJob.setMaxSalary(jobUpdates.getMaxSalary());
-            return jobRepository.save(updatedJob);
+        Optional<Job> jobToUpdateOptional = jobRepository.findById(id);
+        if(jobToUpdateOptional.isPresent()){
+            Job jobToUpdate = jobToUpdateOptional.get();
+//            jobUpdates.setId(jobUpdates.getId());
+            jobToUpdate.setDescription(jobUpdates.getDescription());
+            jobToUpdate.setLocation(jobUpdates.getLocation());
+            jobToUpdate.setTitle(jobUpdates.getTitle());
+            jobToUpdate.setMinSalary(jobUpdates.getMinSalary());
+            jobToUpdate.setMaxSalary(jobUpdates.getMaxSalary());
+//            jobToUpdate.setCompany(jobUpdates.getCompany());
+            return jobRepository.save(jobToUpdate);
         }
         return null;
     }

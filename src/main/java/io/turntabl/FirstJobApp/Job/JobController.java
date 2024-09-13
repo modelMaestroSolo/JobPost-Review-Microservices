@@ -31,7 +31,7 @@ public class JobController {
                 .path("/{id}")          //append dynamic path
                 .buildAndExpand(id)     // substitute value into path
                 .toUri();               // convert to uri object
-        return ResponseEntity.created(location).body("Job successfully crated!");
+        return ResponseEntity.created(location).body("Job successfully created!");
     }
 
     //getJobById  GET /jobs/{id}
@@ -56,8 +56,9 @@ public class JobController {
     @PutMapping("/jobs/{id}")
     public ResponseEntity<Job> updateJob(@PathVariable Long id, @RequestBody Job job){
         Job updatedJob = jobService.updateJob(id, job);
-        if(updatedJob != null)
-            return ResponseEntity.ok(job);
+        if(updatedJob != null){
+            return ResponseEntity.ok(updatedJob);
+        }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 
     }

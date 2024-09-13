@@ -36,7 +36,7 @@ public class CompanyController {
                 .path("/{id}")
                 .buildAndExpand(id)
                 .toUri();
-        return ResponseEntity.created(location).body("Company registered successfully!" + id);
+        return ResponseEntity.created(location).body("Company registered successfully with id " + id + "!");
     }
 
 
